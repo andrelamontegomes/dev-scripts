@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Purpose: Fast Switch between git users
+
+# Constants
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+if [ $# -eq 0 ] ; then
+  printf "${RED}No arguments supplied [ work home ]\n"
+  exit 1;
+fi
+
+if test $1 == "work" ; then
+  git config --global user.email "andre@gosmartsolar.com" 
+  printf "Switched to Work git account: ${GREEN}andre@gosmartsolar.com\n"
+  exit 0;
+fi
+
+if test $1 == "home" ; then
+  git config --global user.email "gomesacbc@gmail.com"
+  printf "Switched to Gmail git account: ${GREEN}gomesacbc@gmail.com\n" 
+  exit 0;
+fi
+
+printf "${RED}Error: options available [ work home ]\n"
+exit 1;
+

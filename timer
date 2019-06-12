@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Quick Timer Script
+
+read -r -p 'How many minutes? ' minutes
+
+if test "$minutes" == "" ; then
+	echo "Cancelling..."
+	exit 1
+fi
+
+secs=$((minutes * 60))
+while [ $secs -gt 0 ]; do
+   echo -ne "$secs\033[0K\r"
+   sleep 1
+   : $((secs--))
+done
+
+say "Timer has finished"

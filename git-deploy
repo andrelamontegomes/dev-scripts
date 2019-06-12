@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Prevents running in home directory
+if test $(pwd) == $HOME ; then
+  echo 'Do not run this script in root'
+  exit 1;
+fi
+
+# Checks if location is git initialized
+if [ ! -e '.git' ] ; then
+	echo 'This is not a git repository - run git init'
+	exit 1;
+fi
+
+function commit {
+	echo 'Write commit msg, leave blank to end script'
+	read -r -p 'Commit message: ' message
+	if test "$message" == '' ; then
+		echo 'Cancelling deploying'
+		exit 0;
+	fi
+	git add .
+	git add -u
+	git commit -m "$message"
+}
+
+function staging_push {
+	git push
+	git push staging master
+}
+
+function production_push {
+	git push
+	git push heroku master
+}
+
+# q = skip committing, straight deploy
+# s = push to staging
+# h = push to heroku
+while getopts ":spr" opt; do
+	case $opt in	
+		s)		
+			echo 'Pushing to staging initiated' >&2
+			commit
+			staging_push
+			;;		
+		p) 
+			echo "Production deploying" >&2
+			commit
+			production_push
+			;;
+		r)
+			echo "Pushing to just repo" >&2
+			commit
+			git push
+			;;
+		\?)
+			echo 'Invalid option: -$OPTARG' >&2
+			;;
+	esac
+done
+
+echo 'Deploying finished'
+exit 0

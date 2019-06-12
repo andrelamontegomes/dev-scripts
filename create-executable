@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Function: Create executable scripts
+# $1 = File name
+# $2 = type of script [ ruby python bash ]
+
+# Initialize variables 
+path=$HOME/bin/
+
+# Checks if the file already exist
+if [ -f "$path/$1" ]; then
+    echo "File already exists"
+    exit 1
+fi
+
+# Check language the script is in
+[ ! -z "$2" ] && lang="$2" || lang="bash"
+
+bang="#!/bin/env $lang"
+
+touch $path && echo "$bang" >> $path/$1
+
+chmod +x $path/$1
+
+vi  $path/$1
