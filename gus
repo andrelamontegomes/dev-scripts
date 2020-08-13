@@ -24,6 +24,12 @@ if test $1 == "home" ; then
   exit 0;
 fi
 
-printf "${RED}Error: options available [ work home ]\n"
+if test $1 == "cocoon" ; then
+  git config --global user.email "andre@cocoon.build"
+  printf "Switched to Cocoon Git account: ${GREEN}andre@cocoon.build\n" 
+  exit 0;
+fi
+
+printf "${RED}Error: options available [ work home cocoon ]\n"
 exit 1;
 

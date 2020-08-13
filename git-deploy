@@ -31,7 +31,7 @@ function staging_push {
 
 function production_push {
 	git push
-	git push heroku master
+	git push production master
 }
 
 # q = skip committing, straight deploy
