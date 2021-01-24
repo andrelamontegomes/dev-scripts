@@ -8,19 +8,19 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 if [ $# -eq 0 ] ; then
-  printf "${RED}No arguments supplied [ work home ]\n"
+  printf "${RED}No arguments supplied [ gss github home ]\n"
   exit 1;
 fi
 
-if test $1 == "work" ; then
+if test $1 == "gss" ; then
   git config --global user.email "andre@gosmartsolar.com" 
-  printf "Switched to Work git account: ${GREEN}andre@gosmartsolar.com\n"
+  printf "Switched to gss git account: ${GREEN}andre@gosmartsolar.com\n"
   exit 0;
 fi
 
-if test $1 == "home" ; then
-  git config --global user.email "gomesacbc@gmail.com"
-  printf "Switched to Gmail git account: ${GREEN}gomesacbc@gmail.com\n" 
+if test $1 == "github" ; then
+  git config --global user.email "44297498+gomesac@users.noreply.github.com"
+  printf "Switched to Gmail git account: ${GREEN}44297498+gomesac@users.noreply.github.com\n" 
   exit 0;
 fi
 
@@ -30,6 +30,6 @@ if test $1 == "cocoon" ; then
   exit 0;
 fi
 
-printf "${RED}Error: options available [ work home cocoon ]\n"
+printf "${RED}Error: options available [ gss github cocoon ]\n"
 exit 1;
 
