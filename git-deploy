@@ -34,9 +34,10 @@ function production_push {
 	git push production master
 }
 
-# q = skip committing, straight deploy
+# r = skip committing, straight deploy
 # s = push to staging
 # h = push to heroku
+# q = quick update, committ msg is just "Update"
 while getopts ":spr" opt; do
 	case $opt in	
 		s)		
