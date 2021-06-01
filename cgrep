@@ -9,4 +9,4 @@ if [ -r .grepignore ]; then
     done < .grepignore
 fi
 
-eval grep -r "$EXCLUDE" '"$@"'
+eval grep -r "$EXCLUDE" '"$@"' --color=always
