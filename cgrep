@@ -1,12 +1,18 @@
 #!/bin/bash
 
 if [ -r .grepignore ]; then
-    while read -r line; do
-        if [[ "$line" =~ '#' ]] || [[ "$line" =~ ^$ ]]; then
-            continue
-        fi
-        EXCLUDE="$EXCLUDE --exclude-dir=\"$line\""
-    done < .grepignore
+  while read -r line; do
+    # Checking if a comment or end of line
+    if [[ "$line" =~ '#' ]] || [[ "$line" =~ ^$ ]]; then
+      continue
+    fi
+
+    if [[ "$line" =~ /$ ]] ; then
+      EXCLUDE="$EXCLUDE --exclude-dir=\"$line\""
+    else
+      EXCLUDE="$EXCLUDE --exclude=\"$line\""
+    fi
+  done < .grepignore
 fi
 
 eval grep -r "$EXCLUDE" '"$@"' --color=always
