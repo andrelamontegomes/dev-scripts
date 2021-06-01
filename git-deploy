@@ -38,7 +38,7 @@ function production_push {
 # s = push to staging
 # h = push to heroku
 # q = quick update, committ msg is just "Update"
-while getopts ":spr" opt; do
+while getopts ":sprz" opt; do
 	case $opt in	
 		s)		
 			echo 'Pushing to staging initiated' >&2
@@ -53,6 +53,13 @@ while getopts ":spr" opt; do
 		r)
 			echo "Pushing to just repo" >&2
 			commit
+			git push
+			;;
+		z)
+			echo "Zap Push Immediately" >&2
+      git add .
+      git add -u
+      git commit -m "Zap Update"
 			git push
 			;;
 		\?)
