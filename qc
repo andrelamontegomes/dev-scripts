@@ -19,10 +19,14 @@ function commit_message {
 	exit 0;
 }
 
-while getopts ":s" opt; do
+while getopts ":sm" opt; do
 	case $opt in
 		s)
 			message="Spring Cleaning"			
+			commit_message $message
+			;;			
+		m)
+			message="Resolve merge conflicts"			
 			commit_message $message
 			;;			
 		\?)
