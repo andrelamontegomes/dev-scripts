@@ -59,7 +59,7 @@ while getopts ":sprz" opt; do
 			echo "Zap Push Immediately" >&2
       git add .
       git add -u
-      git commit -m "Zap Update"
+      git commit -m "Zap: $(date +"%Y-%m-%d %H:%M:%S")"
 			git push
 			;;
 		\?)
