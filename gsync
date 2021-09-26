@@ -1,0 +1,19 @@
+#!/bin/bash
+# Prevents running in home directory
+if test $(pwd) == $HOME ; then
+  echo 'Do not run this script in root'
+  exit 1;
+fi
+
+# Checks if location is git initialized
+if [ ! -e '.git' ] ; then
+	echo 'This is not a git repository - run git init'
+	exit 1;
+fi
+
+git add .
+git add -u
+git commit -m "Sync: $(date +"%Y-%m-%d %H:%M:%S")"
+git push
+
+exit 0
