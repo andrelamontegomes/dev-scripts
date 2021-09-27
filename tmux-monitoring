@@ -1,5 +1,5 @@
 #!/bin/sh
-tmux new-session \; \
+tmux new-session -t monitoring \; \
   send-keys 'htop' C-m \; \
   split-window -v -p 75 \; \
   split-window -h -p 30 \; \
