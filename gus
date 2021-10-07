@@ -14,7 +14,7 @@ fi
 
 if test $1 == "gss" ; then
   git config --global user.email "andre@gosmartsolar.com" 
-  printf "Switched to gss git account: ${GREEN}andre@gosmartsolar.com\n"
+  printf "Switched to gss git account: ${GREEN}andre@bigsunsolar.com\n"
   exit 0;
 fi
 
