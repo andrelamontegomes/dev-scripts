@@ -5,7 +5,7 @@
 # $2 = type of script [ ruby python bash ]
 
 # Initialize variables 
-path=$HOME/bin/
+path=$HOME/util/
 
 # Checks if the file already exist
 if [ -f "$path/$1" ]; then
