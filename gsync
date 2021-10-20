@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Prevents running in home directory
 if test $(pwd) == $HOME ; then
   echo 'Do not run this script in root'
@@ -11,9 +12,16 @@ if [ ! -e '.git' ] ; then
 	exit 1;
 fi
 
-git add .
-git add -u
-git commit -m "Sync: $(date +"%Y-%m-%d %H:%M:%S")"
-git push
+gstatus="git status --porcelain"
+
+if [ ${#gstatus} -ne 0 ]
+then
+  git add --all
+  git commit -m "Sync: $(date +"%Y-%m-%d %H:%M:%S")"
+    git pull --rebase
+  git push
+else
+  git pull
+fi
 
 exit 0
