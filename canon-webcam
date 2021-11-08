@@ -1,3 +1,5 @@
+# sudo modprobe v4l2loopback exclusive_caps=1 max_buffers=2
+
 gphoto2 --stdout --capture-movie | ffmpeg \
 -hwaccel nvdec \
 -c:v mjpeg_cuvid \
