@@ -5,7 +5,7 @@
 # $2 = type of script [ ruby python bash ]
 
 # Initialize variables 
-path=$HOME/util/
+path=$(pwd)
 
 # Checks if the file already exist
 if [ -f "$path/$1" ]; then
@@ -22,4 +22,4 @@ touch $path && echo "$bang" >> $path/$1
 
 chmod +x $path/$1
 
-vi  $path/$1
+vim $path/$1

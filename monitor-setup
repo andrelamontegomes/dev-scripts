@@ -1,0 +1,116 @@
+#!/bin/bash
+ 
+#Adapt this script to your needs.
+ 
+#
+# HINT: use xrandr -q to discover xrandr's device names, which do not map trivially to the device names in /sys/class/drm/*
+#
+ 
+DEVICES=$(find /sys/class/drm/*/status)
+ 
+#inspired by /etc/acpd/lid.sh and the function it sources
+ 
+displaynum=`ls /tmp/.X11-unix/* | sed s#/tmp/.X11-unix/X##`
+display=":$displaynum.0"
+export DISPLAY=":$displaynum.0"
+ 
+# from https://wiki.archlinux.org/index.php/Acpid#Laptop_Monitor_Power_Off
+export XAUTHORITY=$(ps -C Xorg -f --no-header | sed -n 's/.*-auth //; s/ -[^ ].*//; p')
+ 
+ 
+#this while loop declare the $HDMI1 $DVID2 $HDMI2 and others if they are plugged in
+while read l
+do
+  dir=$(dirname $l);
+  status=$(cat $l);
+  dev=$(echo $dir | cut -d\- -f 2-);
+ 
+  echo "Device: $dev"
+  
+  if [ $(expr match  $dev "HDMI") != "0" ]
+  then
+      # REMOVE THE -X- part from HDMI-X-n
+      dev=HDMI${dev#HDMI-?-}
+  elif [ $(expr match  $dev "DVI") != "0" ]
+  then
+       # REMOVE THE -X- part from HDMI-X-n
+       dev=DVI${dev#DVI-?-}
+  else
+      dev=$(echo $dev | tr -d '-')
+  fi
+ 
+  if [ "connected" == "$status" ]
+  then
+    echo $dev "connected"
+    declare $dev="yes";
+ 
+  fi
+done <<< "$DEVICES"
+ 
+logmsg() {
+    logger --rfc5424=notq,notime,nohost --msgid MHOT "$*"
+}
+ 
+# There are 3 possible monitors:
+#
+#  HDMI-1 -> right hand 
+#  DVI-D-2 -> left hand ASUS monitor
+#  HDMI-1-0 -> TV
+#
+ 
+if [ -z "$DVI2" -a  -z "$HDMI2" ] ;  then
+    #
+    # wierd scenario ... ASUS monitors not connected
+    #
+ 
+    if [ ! -z "$HDMI1" ] ;  then
+    #
+    # TV is connected
+    #
+    logmsg tv no asus
+    else
+    logmsg no tv no asus
+    fi
+ 
+elif [ -z "$DVI2" -a  ! -z "$HDMI2" ] ; then
+     # left ASUS connected
+     
+     if [ ! -z "$HDMI1" ] ; then
+     logmsg left and tv
+ 
+     xrandr --setprovideroutputsource 1 0
+     xrandr --output HDMI-1 --auto --primary --output HDMI-1-0 --auto --right-of HDMI-2
+     logmsg left right with tv
+ 
+     else
+     logmsg left
+     fi
+ 
+elif [ ! -z "$DVI2" -a  -z "$HDMI2" ] ; then
+     # right ASUS connected
+ 
+     if [ ! -z "$HDMI1" ] ; then
+     logmsg right
+     else
+     logmsg right and tv
+     fi
+ 
+     
+elif [ ! -z "$DVI2" -a  ! -z "$HDMI2" ] ; then
+     # both left and right ASUS connected
+ 
+     if [ -z "$HDMI1" ] ; then
+     xrandr --output HDMI-1-0 --auto --primary --output DVI-1 --auto --right-of HDMI-1
+     logmsg left right no tv
+     else
+ 
+     xrandr --setprovideroutputsource 1 0
+ 
+     #xrandr --newmode "1920x1200_60.00"  154.00  1920 1968 2000 2080  1200 1203 1209 1235 +hsync -vsync 
+     #xrandr --output DVI-D-2 --mode "1920x1200_60.00"
+ 
+     xrandr --output HDMI-1-0 --auto --output DVI-1 --auto --left-of HDMI-1-0 --output HDMI-1 --primary --auto --left-of DVI-1
+     logmsg left right with tv
+     fi
+ 
+fi
