@@ -1,4 +1,20 @@
 #!/bin/bash
+
+# I run 3 displays across 2 video adapters. Getting them all to work as I want (one of them is generally powered down, but not disconnected) was a struggle, but now works flawlessly and I tend to forget about the work involved.
+# 
+# The key things I needed to find out:
+# 
+#    1. figuring out how to run a script when a display was connected or disconnected. This needed to be in a udev .rules file somewhere
+# 
+#        ACTION=="change", SUBSYSTEM=="drm", ENV{HOTPLUG}=="1", RUN+="/usr/local/bin/monitor-hotplug.sh"
+# 
+#   2. how to enumerate all possible video display names:
+# 
+#         DEVICES=$(find /sys/class/drm/*/status)
+# 
+#   3. Writing the rest of the script.
+# 
+# The last step is mostly left as an exercise for the reader. There are some good examples online; I'll put my current version here https://pastebin.com/V5yGgCbh for a couple of weeks.
  
 #Adapt this script to your needs.
  
