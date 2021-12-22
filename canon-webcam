@@ -1,7 +1,7 @@
 # https://www.crackedthecode.co/how-to-use-your-dslr-as-a-webcam-in-linux/
 # sudo modprobe v4l2loopback exclusive_caps=1 max_buffers=2
 
-gphoto2 --stdout --capture-movie | ffmpeg \
+gphoto2 --stdout --capture-movie --set-config-value whitebalance="Daylight" ==set=config-value aperture="3.5"| ffmpeg \
 -hwaccel nvdec \
 -c:v mjpeg_cuvid \
 -i - \
