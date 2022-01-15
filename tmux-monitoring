@@ -1,7 +1,0 @@
-#!/bin/sh
-tmux new-session -t monitoring \; \
-  send-keys 'htop' C-m \; \
-  split-window -v -p 20 \; \
-  split-window -h -p 50 \; \
-  send-keys 'wd uy' C-m \; \
-  select-pane -t 1 \; \
