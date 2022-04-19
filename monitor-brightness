@@ -3,6 +3,10 @@
 # xrandr --prop | grep " connected"
 # xrandr --prop --verbose | grep -A10 " connected" | grep "Brightness"
 # night, afternoon, day
-xrandr --output HDMI-0 --brightness 0.4
-xrandr --output HDMI-1 --brightness 0.4
-xrandr --output DP-0 --brightness 0.4
+night = 0.4
+afternoon = 0.65
+day = 1.0
+
+xrandr --output HDMI-0 --brightness 1.0
+xrandr --output HDMI-1 --brightness 1.0
+xrandr --output DP-0 --brightness 1.0
