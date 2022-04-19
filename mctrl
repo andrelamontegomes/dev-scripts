@@ -1,0 +1,43 @@
+#!/bin/env bash
+
+# Interface to control monitor
+
+# xrandr --prop | grep " connected"
+# xrandr --prop --verbose | grep -A10 " connected" | grep "Brightness"
+
+plus=1.3
+morning=1.0
+noon=0.65
+night=0.4
+
+time=$1
+brightness=$1
+
+case "$time" in
+  "plus")
+    brightness=$plus 
+    ;;
+
+  "morning")
+    brightness=$morning 
+    ;;
+
+  "noon")
+    brightness=$noon 
+    ;;
+  
+  "night")
+    brightness=$night 
+    ;;
+
+  *)
+    # Assume $1 is custom number
+    ;;
+esac
+
+xrandr --output HDMI-0 --brightness $brightness
+xrandr --output HDMI-1 --brightness $brightness
+xrandr --output DP-0 --brightness $brightness
+
+# Add wait handler and take in arrow
+# opts to increment by percentage
