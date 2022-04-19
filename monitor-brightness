@@ -10,3 +10,6 @@ day = 1.0
 xrandr --output HDMI-0 --brightness 1.0
 xrandr --output HDMI-1 --brightness 1.0
 xrandr --output DP-0 --brightness 1.0
+
+# Add wait handler and take in arrow
+# opts to increment by percentage
