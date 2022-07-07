@@ -18,10 +18,10 @@ if [ ${#gstatus} -ne 0 ]
 then
   git add --all
   git commit -m "Sync: $(date +"%Y-%m-%d %H:%M:%S")"
-    git pull --rebase
-  git push
+    git pull --rebase &> /dev/null
+  git push &> /dev/null
 else
-  git pull
+  git pull &> /dev/null
 fi
 
 exit 0
