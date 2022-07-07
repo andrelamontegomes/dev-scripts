@@ -16,8 +16,8 @@ gstatus="git status --porcelain"
 
 if [ ${#gstatus} -ne 0 ]
 then
-  git add --all
-  git commit -m "Sync: $(date +"%Y-%m-%d %H:%M:%S")"
+  git add --all &> /dev/null
+  git commit -m "Sync: $(date +"%Y-%m-%d %H:%M:%S")" &> /dev/null
     git pull --rebase &> /dev/null
   git push &> /dev/null
 else
