@@ -7,11 +7,13 @@ if test $(pwd) == $HOME ; then
 fi
 
 # Only run in whitelist projects
-whitelist_projects = ["obsidian", "dot_files"]
-if test $(pwd) == $HOME ; then
-  echo 'Do not run this script in root'
-  exit 1;
-fi
+#whitelist_projects=("obsidian" "_dotfiles" "_tasks" "_utils")
+#echo "${whitelist_projects[*]}"
+#echo $(PWD)
+#if [[ ! "${whitelist_projects[*]} " =~ " $(pwd) "]] ; then
+#  echo 'Please whitelist this project to run auto-save'
+#  exit 1;
+#fi
 
 # Checks if location is git initialized
 if [ ! -e '.git' ] ; then
