@@ -1,0 +1,2 @@
+#!/bin/bash
+task "$@" modify due:1.week > /dev/null
