@@ -1,2 +1,2 @@
 #!/bin/bash
-task "$@" modify due:tom > /dev/null
+task "$@" modify due:eod+1d > /dev/null
