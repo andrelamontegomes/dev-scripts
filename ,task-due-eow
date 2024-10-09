@@ -1,0 +1,2 @@
+#!/bin/bash
+task "$@" modify due:eow+1d > /dev/null
