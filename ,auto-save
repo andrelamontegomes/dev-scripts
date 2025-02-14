@@ -26,7 +26,7 @@ gstatus="git status --porcelain"
 if [ ${#gstatus} -ne 0 ]
 then
   git add --all
-  git commit -m "Sync: $(date +"%Y-%m-%d %H:%M:%S")"
+  git commit -m "chore(autosave): $(date +"%Y-%m-%d %H:%M:%S")"
     git pull --rebase
   git push
 else
